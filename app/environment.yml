@@ -1,0 +1,23 @@
+name: housing-challenge-api
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+
+  - anyio==4.11.0
+  - fastapi[standard]==0.121.3
+  - gunicorn==23.0.0
+  - h11==0.16.0
+  - joblib==1.5.2
+  - libopenblas==0.3.30
+  - libuv==1.51.0
+  - numpy==2.3.5
+  - orjson==3.11.4
+  - pandas==2.3.3
+  - pydantic==2.12.4
+  - scikit-learn==1.7.2
+  - scipy==1.16.3
+  - starlette==0.50.0
+  - uvicorn==0.38.0
+  - uvicorn-worker==0.4.0
+  - uvloop==0.22.1
