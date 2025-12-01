@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import base64
 import numpy as np
 import pandas as pd
+import random
+from datetime import datetime
 from sklearn import metrics, model_selection
 from typing import TYPE_CHECKING
 
@@ -171,3 +174,31 @@ def format_model_name(model: BaseEstimator) -> str | list[str | list]:
         return components
     else:
         return type(model).__name__
+
+
+def create_model_version(model_name: str, trained_at: datetime) -> str:
+    salt = random.randint(0, 1_000_000_000)
+    dt_str = trained_at.isoformat()
+    raw_version = f"{model_name}_{dt_str}_{salt}"
+    encoded_version = (
+        base64.b64encode(raw_version.encode("utf-8")).decode("utf-8").rstrip("=")
+    )
+    return encoded_version
+
+
+def parse_model_version(model_version: str) -> dict[str, Any]:
+    padding = "=" * (-len(model_version) % 4)
+    decoded_bytes = base64.b64decode(model_version + padding)
+    decoded_str = decoded_bytes.decode("utf-8")
+    decoded_str, salt_str = decoded_str.rsplit("_", 1)
+    model_name, dt_str = decoded_str.rsplit("_", 1)
+    try:
+        trained_at = datetime.fromisoformat(dt_str)
+        salt = int(salt_str)
+    except ValueError as err:
+        raise ValueError(f"Invalid model_version format: {model_version}") from err
+    return {
+        "model_name": model_name,
+        "trained_at": trained_at,
+        "salt": salt,
+    }
