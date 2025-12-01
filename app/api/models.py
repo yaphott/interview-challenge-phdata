@@ -244,6 +244,14 @@ class ModelInfoResponse(BaseModel):
         frozen=True,
         strict=True,
     )
+    model_version: str = Field(
+        ...,
+        description="Model identifier for versioning",
+        examples=["updated_2024-06-01T12:00:00Z"],
+        min_length=1,
+        frozen=True,
+        strict=True,
+    )
     trained_at: str | None = Field(
         ...,
         description="Date when the model was trained",

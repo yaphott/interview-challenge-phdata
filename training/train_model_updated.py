@@ -7,7 +7,12 @@ import pickle
 from datetime import datetime, timezone
 from sklearn import ensemble, model_selection
 
-from training.helpers import cross_validate_model, evaluate_model, format_model_name
+from training.helpers import (
+    create_model_version,
+    cross_validate_model,
+    evaluate_model,
+    format_model_name,
+)
 
 PROJECT_DIR: pathlib.Path = pathlib.Path(__file__).parent.parent
 
@@ -191,8 +196,10 @@ def main() -> None:
     cv_metrics = cross_validate_model(model, x, y)
     logger.info("Cross-validation metrics: %s", cv_metrics)
 
+    model_name = "updated_model"
     metadata = {
-        "model_name": "updated_rf_model",
+        "model_name": model_name,
+        "model_version": create_model_version(model_name, start_dt),
         "trained_at": start_dt.isoformat(),
         "model_type": format_model_name(model),
         "n_features": x.shape[1],

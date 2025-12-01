@@ -1,6 +1,7 @@
 {
-    "model_name": "updated_rf_model",
-    "trained_at": "2025-11-30T20:53:10.926856+00:00",
+    "model_name": "updated_model",
+    "model_version": "dXBkYXRlZF9tb2RlbF8yMDI1LTEyLTAxVDIyOjAwOjIxLjUyNzE4OCswMDowMF84OTMxMzkwMTU",
+    "trained_at": "2025-12-01T22:00:21.527188+00:00",
     "model_type": "GradientBoostingRegressor",
     "n_features": 49,
     "features": [
