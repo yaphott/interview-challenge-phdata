@@ -258,7 +258,6 @@ class ModelInfoResponse(BaseModel):
         examples=["KNeighborsRegressor"],
         min_length=1,
         frozen=True,
-        strict=True,
     )
     n_features: int = Field(
         ...,
